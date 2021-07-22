@@ -1,0 +1,9 @@
+name: 'Seven to Eight Migration'
+type: module
+description: 'Export content from D7 to D8'
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: 'Custom migration'
+dependencies:
+  - migrate_plus
+  - migrate_drupal

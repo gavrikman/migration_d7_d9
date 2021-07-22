@@ -1,0 +1,55 @@
+id: node_country
+label: 'Migrate country node'
+migration_group: default
+migration_tags: null
+migration_dependencies:
+  required:
+    - node_relation
+    - d7_node_type
+status: true
+langcode: en
+source:
+  plugin: d7_node
+  constants:
+    source_base_path: 'sites/default/files/'
+    old_files_path: 'sites/default/files_drupal7/'
+  node_type: country
+process:
+  nid: nid
+  vid: vid
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  title: title
+  uid: node_uid
+  status: status
+  created: created
+  changed: changed
+  promote: promote
+  sticky: sticky
+  revision_uid: revision_uid
+  revision_log: log
+  revision_timestamp: timestamp
+  body: body
+  field_open_to_tourists: field_open_to_tourists
+  field_organisation: field_organisation
+  field_date_time_in_country: field_date_time_in_country
+  field_events:
+    plugin: sub_process
+    source: field_events
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: node_relation
+        source: target_id
+        no_stub: true
+  field_video:
+    plugin: video_files
+    destination_field: field_media_video_file
+    destination_bundle: video
+    source: field_video
+destination:
+  plugin: 'entity:node'
+  default_bundle: country
+
